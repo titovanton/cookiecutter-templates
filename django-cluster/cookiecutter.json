@@ -1,0 +1,33 @@
+{
+    "vagrant": true,
+
+    "project_name": "django_cluster",
+    "db_pwd": "1",
+
+    "nginx_proxy_cpus": 1,
+    "nginx_static_cpus": 1,
+    "django_cpus": 1,
+    "db_cpus": 1,
+
+    "nginx_proxy_ram": 1024,
+    "nginx_static_ram": 1024,
+    "django_ram": 1024,
+    "db_ram": 1024,
+
+    "nginx_proxy_ip": "10.10.10.45",
+    "nginx_static_ip": "10.10.10.46",
+    "django_ip": "10.10.10.47",
+    "db_ip": "10.10.10.48",
+
+    "snc_dr": "/vagrant",
+    "cd_dir": "/vagrant",
+    "prv_dr": "/vagrant/provisions",
+    "prj_dr": "/vagrant/project",
+    "cfg_dr": "/vagrant/conf",
+    "dat_dr": "/vagrant/data",
+
+    "nginx_server_name": "localhost",
+    "django_version": "Django",
+    "project_owner": "vagrant",
+    "wsgi_app": "app.wsgi"
+}

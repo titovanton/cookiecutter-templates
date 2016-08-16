@@ -1,0 +1,27 @@
+{
+    "vagrant": true,
+
+    "project_name": "sails_cluster",
+
+    "nginx_proxy_cpus": 1,
+    "sails_cpus": 1,
+    "db_cpus": 1,
+
+    "nginx_proxy_ram": 1024,
+    "sails_ram": 1024,
+    "db_ram": 1024,
+
+    "nginx_proxy_ip": "10.10.10.45",
+    "sails_ip": "10.10.10.46",
+    "db_ip": "10.10.10.47",
+
+    "snc_dr": "/vagrant",
+    "cd_dir": "/vagrant",
+    "prv_dr": "/vagrant/provisions",
+    "prj_dr": "/vagrant/project",
+    "cfg_dr": "/vagrant/conf",
+    "dat_dr": "/vagrant/data",
+
+    "nginx_server_name": "localhost",
+    "project_owner": "vagrant"
+}

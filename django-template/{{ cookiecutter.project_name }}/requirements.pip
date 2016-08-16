@@ -1,0 +1,29 @@
+django-extensions
+psycopg2
+pillow
+werkzeug
+see
+
+# webassets-babel
+# git+git://github.com/miracle2k/django-assets.git
+# cssmin
+# jsmin
+# glue
+
+# redis
+# django-redis
+# django_rq
+
+# git+git://github.com/mariocesar/sorl-thumbnail.git
+
+# git+https://github.com/django-debug-toolbar/django-debug-toolbar.git
+# git+https://github.com/orf/django-debug-toolbar-template-timings.git
+
+# python-dateutil
+# pytz
+
+# selenium
+# pyvirtualdisplay
+
+# urllib3
+# requests

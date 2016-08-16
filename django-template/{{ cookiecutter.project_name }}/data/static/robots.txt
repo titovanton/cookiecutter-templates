@@ -1,0 +1,12 @@
+User-agent: *
+
+Disallow: /admin*
+Disallow: /search*
+Disallow: /cart*
+Disallow: /order*
+
+# Host: {{ cookiecutter.nginx_server_name }}
+# Sitemap: https://{{ cookiecutter.nginx_server_name }}/sitemap.xml
+
+Request-rate: 1/5         # загружать не более одной страницы за пять секунд
+Visit-time: 0000-0500     # загружать страницы только в промежуток с 00 утра до 05:00 по Гринвичу.

@@ -1,0 +1,9 @@
+{
+  "name": "{{ cookiecutter.project_name }}",
+  "private": true,
+
+  "dependencies": {
+    "less": "^2.5.0",
+    "coffee-script": "^1.9.2"
+  }
+}

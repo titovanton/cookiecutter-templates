@@ -1,0 +1,21 @@
+{
+    "vagrant": true,
+
+    "project_name": "djangoProject",
+    "db_pwd": "1",
+
+    "CPUS": 4,
+    "RAM": 2048,
+
+    "snc_dr": "/vagrant",
+    "cd_dir": "/vagrant/project",
+    "prj_dr": "/vagrant/project",
+    "cfg_dr": "/vagrant/conf",
+    "data_dr": "/vagrant/data",
+    "upstart_dr": "/vagrant/upstart",
+
+    "django_version": "Django",
+    "project_owner": "vagrant",
+    "wsgi_app": "app.wsgi",
+    "nginx_server_name": "localhost"
+}

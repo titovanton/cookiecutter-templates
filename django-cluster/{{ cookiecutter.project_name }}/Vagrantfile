@@ -1,0 +1,112 @@
+Vagrant.configure(2) do |config|
+    config.vm.box = "ubuntu/trusty64"
+    config.vm.synced_folder ".", "{{ cookiecutter.snc_dr }}"
+    config.vm.provision :shell, path: "provisions/default.sh"
+
+    # Nginx Proxy
+    config.vm.define "ngp" do |ngp|
+      ngp.vm.provision :shell, path: "provisions/nginx.sh"
+      ngp.vm.provision :shell, path: "provisions/nginx_proxy.sh"
+
+      ngp.vm.network "private_network",
+        ip: "{{ cookiecutter.nginx_proxy_ip }}"
+
+      ngp.vm.network :forwarded_port, guest: 80, host: 9000
+      ngp.vm.network :forwarded_port, guest: 8000, host: 8000
+
+      ngp.vm.provider :virtualbox do |v|
+        v.customize [
+          "modifyvm", :id,
+          "--cpus", {{ cookiecutter.nginx_proxy_cpus }}
+        ]
+
+        v.customize [
+          "modifyvm", :id,
+          "--memory", {{ cookiecutter.nginx_proxy_ram }}
+        ]
+
+        v.customize [
+          "modifyvm", :id,
+          "--name", "{{ cookiecutter.project_name }}-ngp"
+        ]
+      end
+    end
+
+    # Nginx Static
+    config.vm.define "ngs" do |ngs|
+      ngs.vm.provision :shell, path: "provisions/nginx.sh"
+      ngs.vm.provision :shell, path: "provisions/nginx_static.sh"
+
+      ngs.vm.network "private_network",
+        ip: "{{ cookiecutter.nginx_static_ip }}"
+
+      ngs.vm.network :forwarded_port, guest: 80, host: 9001
+      ngs.vm.network :forwarded_port, guest: 8000, host: 8001
+
+      ngs.vm.provider "virtualbox" do |v|
+        v.customize [
+          "modifyvm", :id,
+          "--cpus", {{ cookiecutter.nginx_static_cpus }}
+        ]
+
+        v.customize [
+          "modifyvm", :id,
+          "--memory", {{ cookiecutter.nginx_static_ram }}
+        ]
+
+        v.customize [
+          "modifyvm", :id,
+          "--name", "{{ cookiecutter.project_name }}-ngs"
+        ]
+      end
+    end
+
+    # Django
+    config.vm.define "dj" do |dj|
+      dj.vm.provision :shell, path: "provisions/django.sh"
+
+      dj.vm.network "private_network",
+        ip: "{{ cookiecutter.django_ip }}"
+
+      dj.vm.provider "virtualbox" do |v|
+        v.customize [
+          "modifyvm", :id,
+          "--cpus", {{ cookiecutter.django_cpus }}
+        ]
+
+        v.customize [
+          "modifyvm", :id,
+          "--memory", {{ cookiecutter.django_ram }}
+        ]
+
+        v.customize [
+          "modifyvm", :id,
+          "--name", "{{ cookiecutter.project_name }}-dj"
+        ]
+      end
+    end
+
+    # DataBase
+    config.vm.define "db" do |db|
+      db.vm.provision :shell, path: "provisions/db.sh"
+      db.vm.network "private_network",
+        ip: "{{ cookiecutter.db_ip }}"
+
+      db.vm.provider "virtualbox" do |v|
+        v.customize [
+          "modifyvm", :id,
+          "--cpus", {{ cookiecutter.db_cpus }}
+        ]
+
+        v.customize [
+          "modifyvm", :id,
+          "--memory", {{ cookiecutter.db_ram }}
+        ]
+
+        v.customize [
+          "modifyvm", :id,
+          "--name", "{{ cookiecutter.project_name }}-db"
+        ]
+      end
+    end
+end
