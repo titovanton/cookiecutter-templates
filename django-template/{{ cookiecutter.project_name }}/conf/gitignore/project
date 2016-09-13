@@ -1,0 +1,15 @@
+# Files
+*.pyc
+*.sql
+*.7z
+*.rar
+*.zip
+*.tar
+*.tar.gz
+
+# Server
+reload_uwsgi
+
+# Django
+manage.py
+wsgi.py

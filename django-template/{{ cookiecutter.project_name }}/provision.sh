@@ -54,15 +54,15 @@ cp /etc/postgresql/$PGV/main/pg_hba.conf\
 cat /etc/postgresql/$PGV/main/pg_hba.conf.default | grep ^[^#] >\
     /etc/postgresql/$PGV/main/pg_hba.conf.clean
 
-cp {{ cookiecutter.cfg_dr }}/pg_hba.conf /etc/postgresql/$PGV/main/
+cp {{ cookiecutter.cfg_dr }}/postgresql/pg_hba.conf /etc/postgresql/$PGV/main/
 chown -R postgres:postgres /etc/postgresql/$PGV/main/
 service postgresql restart
 
 # create db and role
-sudo -u postgres psql -c "CREATE ROLE {{ cookiecutter.project_name }} WITH LOGIN PASSWORD '{{ cookiecutter.db_pwd }}';"
-sudo -u postgres psql -c 'ALTER USER {{ cookiecutter.project_name }} CREATEDB;'
-sudo -u postgres psql -c 'CREATE DATABASE {{ cookiecutter.project_name }} OWNER {{ cookiecutter.project_name }};'
-sudo -u postgres psql -c 'GRANT ALL ON DATABASE {{ cookiecutter.project_name }} TO {{ cookiecutter.project_name }};'
+sudo -u postgres psql -c "CREATE ROLE {{ cookiecutter.db_usr }} WITH LOGIN PASSWORD '{{ cookiecutter.db_pwd }}';"
+sudo -u postgres psql -c 'ALTER USER {{ cookiecutter.db_usr }} CREATEDB;'
+sudo -u postgres psql -c 'CREATE DATABASE {{ cookiecutter.db_usr }} OWNER {{ cookiecutter.db_usr }};'
+sudo -u postgres psql -c 'GRANT ALL ON DATABASE {{ cookiecutter.db_usr }} TO {{ cookiecutter.db_usr }};'
 
 
 echo '#########################################################################'
@@ -88,8 +88,21 @@ pip install -U -r {{ cookiecutter.snc_dr }}/requirements.pip
 # If exists, it means that we clone it from github/bitbucket,
 # then creation is needless.
 if [ ! -d {{ cookiecutter.prj_dr }}/app ]; then
+  # start project
+  mkdir -p {{ cookiecutter.prj_dr }}
   cd {{ cookiecutter.prj_dr }}
-  django-admin.py startproject app .
+  django-admin.py startproject --template {{ cookiecutter.prj_tpl }} project {{ cookiecutter.prj_dr }}
+
+  # clone bicycle
+  cd {{ cookiecutter.prj_dr }}/bicycle
+  git clone https://github.com/titovanton/bicycle-core.git core
+
+  # .gitignore
+  cp {{ cookiecutter.cfg_dr }}/gitignore/project {{ cookiecutter.prj_dr }}/.gitignore
+  cp {{ cookiecutter.cfg_dr }}/gitignore/settings {{ cookiecutter.prj_dr }}/app/settings/.gitignore
+
+  # migrations
+  cd {{ cookiecutter.prj_dr }}
   ./manage.py migrate
 fi
 
@@ -99,35 +112,36 @@ echo '#                               Addons                                  #'
 echo '#########################################################################'
 
 # gettext
-# apt-get install -y gettext
+apt-get install -y gettext
 
-# Supervisor
+## Supervisor
 # apt-get install -y supervisor
+# cp {{ cookiecutter.cfg_dr }}/supervisor/rqworker.conf /etc/supervisor/conf.d/
 
 # Redis
-# {{ cookiecutter.snc_dr }}/addons/redis.sh
+{{ cookiecutter.snc_dr }}/addons/redis.sh
 
-# ES as search index
+## ES as search index
 # {{ cookiecutter.snc_dr }}/addons/elasticsearch.sh
 
 # node.js
-# {{ cookiecutter.snc_dr }}/addons/nodejs.sh
-# cd {{ cookiecutter.prj_dr }}
-# npm install
+{{ cookiecutter.snc_dr }}/addons/nodejs.sh
+cd {{ cookiecutter.prj_dr }}
+npm install
 
 # ExifTool
-# apt-get install -y libimage-exiftool-perl
+apt-get install -y libimage-exiftool-perl
 
-# beautifulsoup
+## beautifulsoup
 # {{ cookiecutter.snc_dr }}/addons/beautifulsoup.sh
 
-# ruby
+## ruby
 # apt-get install -y ruby-full
 
-# ruby-sass
+## ruby-sass
 # apt-get install -y ruby-sass
 
-# GeoIP
+## GeoIP
 # apt-get install -y geoip-bin
 
 
@@ -170,8 +184,8 @@ IP=$(ifconfig eth0 | grep "inet addr" | cut -d ':' -f 2 | cut -d ' ' -f 1)
 
 rm /etc/nginx/sites-enabled/default
 
-sed -e "s|%IP%|$IP|g" {{ cookiecutter.cfg_dr }}/80.conf > /etc/nginx/sites-available/80.conf
-sed -e "s|%IP%|$IP|g" {{ cookiecutter.cfg_dr }}/8000.conf > /etc/nginx/sites-available/8000.conf
+sed -e "s|%IP%|$IP|g" {{ cookiecutter.cfg_dr }}/nginx/80.conf > /etc/nginx/sites-available/80.conf
+sed -e "s|%IP%|$IP|g" {{ cookiecutter.cfg_dr }}/nginx/8000.conf > /etc/nginx/sites-available/8000.conf
 
 ln -s /etc/nginx/sites-available/80.conf /etc/nginx/sites-enabled/80.conf
 ln -s /etc/nginx/sites-available/8000.conf /etc/nginx/sites-enabled/8000.conf

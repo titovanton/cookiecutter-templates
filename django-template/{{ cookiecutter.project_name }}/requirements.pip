@@ -3,27 +3,26 @@ psycopg2
 pillow
 werkzeug
 see
+python-dateutil
+pytz
 
-# webassets-babel
-# git+git://github.com/miracle2k/django-assets.git
-# cssmin
-# jsmin
-# glue
+webassets-babel
+git+git://github.com/miracle2k/django-assets.git
+cssmin
+jsmin
+glue
 
-# redis
-# django-redis
-# django_rq
+redis
+django-redis
+django_rq
 
-# git+git://github.com/mariocesar/sorl-thumbnail.git
-
-# git+https://github.com/django-debug-toolbar/django-debug-toolbar.git
-# git+https://github.com/orf/django-debug-toolbar-template-timings.git
-
-# python-dateutil
-# pytz
+git+git://github.com/mariocesar/sorl-thumbnail.git
 
 # selenium
 # pyvirtualdisplay
 
 # urllib3
 # requests
+
+# git+https://github.com/django-debug-toolbar/django-debug-toolbar.git
+# git+https://github.com/orf/django-debug-toolbar-template-timings.git

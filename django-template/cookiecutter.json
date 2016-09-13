@@ -1,18 +1,18 @@
 {
-    "vagrant": true,
-
     "project_name": "djangoProject",
+    "db_usr": "django",
     "db_pwd": "1",
 
     "CPUS": 4,
     "RAM": 2048,
 
-    "snc_dr": "/vagrant",
-    "cd_dir": "/vagrant/project",
-    "prj_dr": "/vagrant/project",
-    "cfg_dr": "/vagrant/conf",
-    "data_dr": "/vagrant/data",
-    "upstart_dr": "/vagrant/upstart",
+    "snc_dr": "/webapp",
+    "cd_dir": "/webapp/project",
+    "prj_dr": "/webapp/project",
+    "prj_tpl": "/webapp/project_template",
+    "cfg_dr": "/webapp/conf",
+    "data_dr": "/webapp/data",
+    "upstart_dr": "/webapp/upstart",
 
     "django_version": "Django",
     "project_owner": "vagrant",

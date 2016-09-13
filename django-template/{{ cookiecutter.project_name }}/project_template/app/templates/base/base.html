@@ -1,0 +1,82 @@
+<!doctype html>
+{% raw %}
+{% load assets %}
+
+{% spaceless %}
+<html lang="ru">
+
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+        <meta name="keywords" content="{% block html_keywords %}{% endblock %}">
+        <meta name="description" content="{% block html_description %}{% endblock %}">
+
+        <title>{% block html_title %}{% endblock %}</title>
+
+        <link href="/favicon.ico" rel="shortcut icon">
+
+        {# CSS #}
+        {% block page_css %}{% endblock page_css %}
+    </head>
+
+    <body id="{% block body_id %}{% endblock body_id %}">
+
+        {# Header #}
+        {% include "base/header.html" %}
+
+        {# Content #}
+        {% block content %}{% endblock content %}
+
+        {# Footer #}
+        {% include "base/footer.html" %}
+
+        {# JavaScript #}
+        <script type="text/javascript">
+            WebFontConfig = {
+                google: {
+                    families: [
+                        'PT+Sans:400,700,700italic,400italic:latin,cyrillic',
+                        'Open+Sans:400,400italic,700,700italic:latin,cyrillic'
+                    ]
+                }
+            };
+            (function() {
+                var wf = document.createElement('script');
+                wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+                    '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+                wf.type = 'text/javascript';
+                wf.async = 'true';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(wf, s);
+            })();
+
+            {% block js_vars %}{% endblock js_vars %}
+
+            function init() {
+                var jsDone = function(file) {
+                        return function() {
+                            try {
+                                console.log('JS: [' + file + '] has been loaded')
+                            } catch (err) {;}
+                        }
+                    },
+                    cssDone = function(file) {
+                        return function() {
+                            try {
+                                console.log('CSS: [' + file + '] has been loaded')
+                            } catch (err) {;}
+                        }
+                    }
+
+                head.load('//yastatic.net/jquery/2.1.1/jquery.min.js?v=2.1.1',
+                    jsDone('jQuery v2.1.1'))
+                {% block page_loader %}{% endblock page_loader %}
+            }
+        </script>
+        <script onload="init()"
+            src="http://cdnjs.cloudflare.com/ajax/libs/headjs/1.0.3/head.min.js"></script>
+    </body>
+
+</html>
+{% endspaceless %}
+{% endraw %}
