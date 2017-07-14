@@ -28,6 +28,6 @@
 
     "nginx_server_name": "localhost",
     "django_version": "Django",
-    "project_owner": "vagrant",
+    "linux_usr": "vagrant",
     "wsgi_app": "app.wsgi"
 }

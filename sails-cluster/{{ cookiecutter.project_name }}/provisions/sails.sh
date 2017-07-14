@@ -29,6 +29,6 @@ sails new {{ cookiecutter.project_name }}
 # dependencies
 npm install elasticsearch --save
 
-chown -R {{ cookiecutter.project_owner }}:{{ cookiecutter.project_owner }} {{ cookiecutter.prj_dr }}
+chown -R {{ cookiecutter.linux_usr }}:{{ cookiecutter.linux_usr }} {{ cookiecutter.prj_dr }}
 
 echo "Voila!"

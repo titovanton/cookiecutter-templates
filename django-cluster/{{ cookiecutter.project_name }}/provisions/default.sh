@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # .bashrc
-echo "cd {{ cookiecutter.cd_dir }}" >> /home/{{ cookiecutter.project_owner }}/.bashrc
+echo "cd {{ cookiecutter.cd_dir }}" >> /home/{{ cookiecutter.linux_usr }}/.bashrc
 
 apt-get update
 # apt-get upgrade -y
@@ -10,4 +10,4 @@ apt-get install -y htop
 
 ln -s /var/log /log
 
-adduser www-data {{ cookiecutter.project_owner }}
+adduser www-data {{ cookiecutter.linux_usr }}

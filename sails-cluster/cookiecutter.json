@@ -23,5 +23,5 @@
     "dat_dr": "/vagrant/data",
 
     "nginx_server_name": "localhost",
-    "project_owner": "vagrant"
+    "linux_usr": "vagrant"
 }

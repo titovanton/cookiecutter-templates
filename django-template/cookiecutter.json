@@ -14,7 +14,7 @@
     "data_dr": "/webapp/data",
 
     "django_version": "Django",
-    "project_owner": "vagrant",
+    "linux_usr": "ubuntu",
     "wsgi_app": "app.wsgi",
     "nginx_server_name": "localhost"
 }

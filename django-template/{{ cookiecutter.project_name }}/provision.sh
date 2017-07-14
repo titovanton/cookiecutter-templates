@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # .bashrc
-echo "cd {{ cookiecutter.cd_dir }}" >> /home/{{ cookiecutter.project_owner }}/.bashrc
+echo "cd {{ cookiecutter.cd_dir }}" >> /home/{{ cookiecutter.linux_usr }}/.bashrc
 
 # hostname
 hostname {{ cookiecutter.project_name }}
@@ -16,7 +16,7 @@ apt-get install -y htop
 apt-get install -y git
 apt-get install -y build-essential
 
-adduser www-data {{ cookiecutter.project_owner }}
+adduser www-data {{ cookiecutter.linux_usr }}
 
 # regexp like in perl
 # needed for nginx and uwsgi both
