@@ -12,12 +12,16 @@ apt-get install -y postgresql-contrib
 
 # pg_hba.conf
 PGV=$(service postgresql status | egrep -o ^[0-9]*?\.[0-9]*?)
+
 cp /etc/postgresql/$PGV/main/pg_hba.conf\
    /etc/postgresql/$PGV/main/pg_hba.conf.default
+
 cat /etc/postgresql/$PGV/main/pg_hba.conf.default | grep ^[^#] >\
     /etc/postgresql/$PGV/main/pg_hba.conf
+
 echo "hostssl all all {{ cookiecutter.django_ip }}/32 md5" >>\
      /etc/postgresql/$PGV/main/pg_hba.conf
+     
 chown -R postgres:postgres /etc/postgresql/$PGV/main/
 
 # postgresql.conf

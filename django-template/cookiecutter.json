@@ -12,7 +12,6 @@
     "prj_tpl": "/webapp/project_template",
     "cfg_dr": "/webapp/conf",
     "data_dr": "/webapp/data",
-    "upstart_dr": "/webapp/upstart",
 
     "django_version": "Django",
     "project_owner": "vagrant",

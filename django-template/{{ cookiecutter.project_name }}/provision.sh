@@ -36,7 +36,7 @@ apt-get install -y postgresql-contrib
 apt-get install -y postgresql-client
 apt-get install -y python-psycopg2
 
-PGV=$(service postgresql status | egrep -o ^[0-9]*?\.[0-9]*?)
+PGV=$(psql --version | egrep -i postgresql | egrep -o [0-9]\.[0-9])
 
 # django asks for those two
 # server side
@@ -46,7 +46,6 @@ apt-get install -y postgresql-server-dev-$PGV
 apt-get install -y libpq-dev
 
 # pg_hba.conf
-PGV=$(service postgresql status | egrep -o ^[0-9]*?\.[0-9]*?)
 
 cp /etc/postgresql/$PGV/main/pg_hba.conf\
    /etc/postgresql/$PGV/main/pg_hba.conf.default
@@ -159,11 +158,14 @@ cp {{ cookiecutter.cfg_dr }}/uwsgi.ini /etc/uwsgi
 mkdir -p /var/log/uwsgi
 chown -R www-data:www-data /var/log/uwsgi
 
-# upstart
-cp {{ cookiecutter.upstart_dr }}/uwsgi.conf /etc/init
+# systemd
+cp {{ cookiecutter.cfg_dr }}/systemd/uwsgi.service /etc/systemd/system/
 
 # run
-service uwsgi start
+systemctl start uwsgi
+
+# on boot aswell
+systemctl enable uwsgi
 
 
 echo '#########################################################################'

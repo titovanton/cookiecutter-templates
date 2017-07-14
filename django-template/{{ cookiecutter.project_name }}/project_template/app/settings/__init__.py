@@ -79,7 +79,7 @@ TEMPLATES = [
 ]
 
 STATICFILES_DIRS = (
-    # ('', rel_project('app', 'static_src', 'static')),
+    ('', rel_project('app', 'static_src', 'static')),
 #     ('bootstrap', rel_project('frontend', 'bootstrap', 'dist')),
 #     ('fancybox', rel_project('frontend', 'fancyapps-fancyBox', 'source')),
 #     ('print', rel_project('frontend', 'jQuery-printPage-plugin')),
